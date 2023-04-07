@@ -120,7 +120,7 @@ namespace ChatHandlerPlugin
             MainWindow.IsOpen = true;
         }
 
-        private void DrawUI()
+        private void DrawUI()   
         {
            // this.WindowSystem.Draw();
         }
