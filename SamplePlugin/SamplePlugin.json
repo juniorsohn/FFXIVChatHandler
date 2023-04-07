@@ -1,0 +1,13 @@
+{
+  "Author": "Kon & Anri",
+  "Name": "Sample Plugin",
+  "Punchline": "Dando voz aos mudos",
+  "Description": "Para quem tem fome, é o pão; para quem tem sede, é a água; pra anri, é uma voz no discord.",
+  "InternalName": "samplePlugin",
+  "ApplicableVersion": "any",
+  "Tags": [
+    "sample",
+    "plugin",
+    "goats"
+  ]
+}
