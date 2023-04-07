@@ -1,21 +1,21 @@
-﻿using Dalamud.Game.Command;
+﻿using System;
+using ChatHandlerPlugin.Attributes;
+using Dalamud.Game.Command;
 using Dalamud.IoC;
 using Dalamud.Plugin;
 using ChatHandlerPlugin.Windows;
 using Dalamud.Game.Gui;
 using Dalamud.Game.Text.SeStringHandling;
 using Dalamud.Game.Text.SeStringHandling.Payloads;
+using Dalamud.Logging;
 
 namespace ChatHandlerPlugin
 {
     public sealed class ChatHandler : IDalamudPlugin
     {
-        public string Name => "Chat handler";
-        private const string CommandName = "/voz";
-
+        public string Name => "Chat Handler";
         private DalamudPluginInterface PluginInterface { get; init; }
-        private CommandManager CommandManager { get; init; }
-        
+        private PluginCommandManager<ChatHandler> commandManager;        
         public Configuration Configuration { get; init; }
         //public WindowSystem WindowSystem = new("ChatHandlerPlugin");
 
@@ -39,20 +39,22 @@ namespace ChatHandlerPlugin
 
             _chatGui.ChatMessage += Chat_onChatMessage;
 
+            commandManager = new PluginCommandManager<ChatHandler>(this, commands);
+
             // you might normally want to embed resources and load them from the manifest stream
-          /*  
-            var imagePath = Path.Combine(PluginInterface.AssemblyLocation.Directory?.FullName!, "goat.png");
-            var goatImage = this.PluginInterface.UiBuilder.LoadImage(imagePath);
-            ConfigWindow = new ConfigWindow(this);
-            MainWindow = new MainWindow(this, goatImage);
-            
-            WindowSystem.AddWindow(ConfigWindow);
-            WindowSystem.AddWindow(MainWindow);
-*/
-      
+            /*  
+              var imagePath = Path.Combine(PluginInterface.AssemblyLocation.Directory?.FullName!, "goat.png");
+              var goatImage = this.PluginInterface.UiBuilder.LoadImage(imagePath);
+              ConfigWindow = new ConfigWindow(this);
+              MainWindow = new MainWindow(this, goatImage);
+              
+              WindowSystem.AddWindow(ConfigWindow);
+              WindowSystem.AddWindow(MainWindow);
+  */
+
 
             //this.PluginInterface.UiBuilder.Draw += DrawUI;
-           // this.PluginInterface.UiBuilder.OpenConfigUi += DrawConfigUI;
+            // this.PluginInterface.UiBuilder.OpenConfigUi += DrawConfigUI;
         }
 
 
@@ -65,6 +67,7 @@ namespace ChatHandlerPlugin
                     if (payload is TextPayload textPayload)
                     {
                         textPayload.Text = sendTextToApi(textPayload.Text);
+                        Console.WriteLine("AAAAAAAAAAAAAAAAAAAAAA MANDA AJUDA");
                     }
                 }    
                 
@@ -74,9 +77,32 @@ namespace ChatHandlerPlugin
         private string? sendTextToApi(string text)
         {
             
-            return "ok!";
+            return "Ok to salvo";
         }
         
+        [Command("/vozon")]
+        [HelpMessage("VOZ LIGADA NA 220V FAMILIA.")]
+        public void VozonCommand(string command, string args)
+        {
+            config.Enabled = true;
+            config.Save();
+            // You may want to assign these references to private variables for convenience.
+            // Keep in mind that the local player does not exist until after logging in.
+            _chatGui.Print($"O PAI TA ON");
+            PluginLog.Verbose("VOZ enabled.");
+        }
+
+        [Command("/vozoff")]
+        [HelpMessage("A mimir")]
+        public void VozoffCommand(string command, string args)
+        {
+            config.Enabled = false;
+            config.Save();
+            // You may want to assign these references to private variables for convenience.
+            // Keep in mind that the local player does not exist until after logging in.
+            _chatGui.Print($"Perdemo família");
+            PluginLog.Verbose("Voz disabled.");
+        }
         
         public void Dispose()
         {
@@ -84,8 +110,8 @@ namespace ChatHandlerPlugin
             
             ConfigWindow.Dispose();
             MainWindow.Dispose();
-            
-            this.CommandManager.RemoveHandler(CommandName);
+
+            _chatGui.ChatMessage -= Chat_onChatMessage;
         }
 
         private void OnCommand(string command, string args)
