@@ -2,13 +2,13 @@
 using Dalamud.IoC;
 using Dalamud.Plugin;
 using System.IO;
+using ChatHandlerPlugin.Windows;
 using Dalamud.Game.Gui;
 using Dalamud.Game.Text.SeStringHandling;
 using Dalamud.Interface.Windowing;
 using Dalamud.Game.Text.SeStringHandling.Payloads;
-using SamplePlugin.Windows;
 
-namespace SamplePlugin
+namespace ChatHandlerPlugin
 {
     public sealed class ChatHandler : IDalamudPlugin
     {
@@ -19,7 +19,7 @@ namespace SamplePlugin
         private CommandManager CommandManager { get; init; }
         
         public Configuration Configuration { get; init; }
-        public WindowSystem WindowSystem = new("SamplePlugin");
+        public WindowSystem WindowSystem = new("ChatHandlerPlugin");
 
         private ConfigWindow ConfigWindow { get; init; }
         private MainWindow MainWindow { get; init; }

@@ -5,7 +5,7 @@ using ImGuiNET;
 using ImGuiScene;
 using Lumina.Models.Materials;
 
-namespace SamplePlugin.Windows;
+namespace ChatHandlerPlugin.Windows;
 
 public class MainWindow : Window, IDisposable
 {
