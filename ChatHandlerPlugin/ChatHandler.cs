@@ -1,25 +1,23 @@
 ﻿using Dalamud.Game.Command;
 using Dalamud.IoC;
 using Dalamud.Plugin;
-using System.IO;
 using ChatHandlerPlugin.Windows;
 using Dalamud.Game.Gui;
 using Dalamud.Game.Text.SeStringHandling;
-using Dalamud.Interface.Windowing;
 using Dalamud.Game.Text.SeStringHandling.Payloads;
 
 namespace ChatHandlerPlugin
 {
     public sealed class ChatHandler : IDalamudPlugin
     {
-        public string Name => "Sample Plugin";
+        public string Name => "Chat handler";
         private const string CommandName = "/voz";
 
         private DalamudPluginInterface PluginInterface { get; init; }
         private CommandManager CommandManager { get; init; }
         
         public Configuration Configuration { get; init; }
-        public WindowSystem WindowSystem = new("ChatHandlerPlugin");
+        //public WindowSystem WindowSystem = new("ChatHandlerPlugin");
 
         private ConfigWindow ConfigWindow { get; init; }
         private MainWindow MainWindow { get; init; }
@@ -40,36 +38,21 @@ namespace ChatHandlerPlugin
             this.config.Initialize(_pi);
 
             _chatGui.ChatMessage += Chat_onChatMessage;
-            
-        
-
-
-
-
-
-
-
-
 
             // you might normally want to embed resources and load them from the manifest stream
-            /*
+          /*  
             var imagePath = Path.Combine(PluginInterface.AssemblyLocation.Directory?.FullName!, "goat.png");
-            var ImagePathPepe = Path.Combine(pluginInterface.AssemblyLocation.Directory?.FullName!, "pepe.png");
             var goatImage = this.PluginInterface.UiBuilder.LoadImage(imagePath);
-            var pepeImage = PluginInterface.UiBuilder.LoadImage(ImagePathPepe);
             ConfigWindow = new ConfigWindow(this);
-            MainWindow = new MainWindow(this, goatImage, pepeImage);
-            */
+            MainWindow = new MainWindow(this, goatImage);
+            
             WindowSystem.AddWindow(ConfigWindow);
             WindowSystem.AddWindow(MainWindow);
+*/
+      
 
-            this.CommandManager.AddHandler(CommandName, new CommandInfo(OnCommand)
-            {
-                HelpMessage = "A useful message to display in /xlhelp"
-            });
-
-            this.PluginInterface.UiBuilder.Draw += DrawUI;
-            this.PluginInterface.UiBuilder.OpenConfigUi += DrawConfigUI;
+            //this.PluginInterface.UiBuilder.Draw += DrawUI;
+           // this.PluginInterface.UiBuilder.OpenConfigUi += DrawConfigUI;
         }
 
 
@@ -97,7 +80,7 @@ namespace ChatHandlerPlugin
         
         public void Dispose()
         {
-            this.WindowSystem.RemoveAllWindows();
+            //this.WindowSystem.RemoveAllWindows();
             
             ConfigWindow.Dispose();
             MainWindow.Dispose();
@@ -113,7 +96,7 @@ namespace ChatHandlerPlugin
 
         private void DrawUI()
         {
-            this.WindowSystem.Draw();
+           // this.WindowSystem.Draw();
         }
 
         public void DrawConfigUI()

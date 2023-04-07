@@ -13,7 +13,7 @@ public class MainWindow : Window, IDisposable
     private TextureWrap PepeImage;
     private ChatHandler chatHandler;
 
-    public MainWindow(ChatHandler chatHandler, TextureWrap goatImage, TextureWrap pepeImage) : base(
+    public MainWindow(ChatHandler chatHandler, TextureWrap goatImage) : base(
         "Nome da Janela", ImGuiWindowFlags.NoScrollbar | ImGuiWindowFlags.NoScrollWithMouse)
     {
         this.SizeConstraints = new WindowSizeConstraints
@@ -23,7 +23,6 @@ public class MainWindow : Window, IDisposable
         };
 
         this.GoatImage = goatImage;
-        this.PepeImage = pepeImage;
         this.chatHandler = chatHandler;
     }
 
@@ -49,11 +48,6 @@ public class MainWindow : Window, IDisposable
         ImGui.Text("Have a goat:");
         ImGui.Indent(55);
         ImGui.Image(this.GoatImage.ImGuiHandle, new Vector2(this.GoatImage.Width, this.GoatImage.Height));
-        ImGui.Unindent(55);
-        
-        ImGui.Text("And a pepe");
-        ImGui.Indent(55);
-        ImGui.Image(this.PepeImage.ImGuiHandle, new Vector2(PepeImage.Width, PepeImage.Height));
         ImGui.Unindent(55);
     }
 }

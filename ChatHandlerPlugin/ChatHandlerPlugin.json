@@ -1,9 +1,9 @@
 {
   "Author": "Kon & Anri",
-  "Name": "Sample Plugin",
+  "Name": "Chat Handler",
   "Punchline": "Dando voz aos mudos",
   "Description": "Para quem tem fome, é o pão; para quem tem sede, é a água; pra anri, é uma voz no discord.",
-  "InternalName": "samplePlugin",
+  "InternalName": "chatHandler",
   "ApplicableVersion": "any",
   "Tags": [
     "sample",
